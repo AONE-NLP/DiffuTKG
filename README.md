@@ -1,4 +1,4 @@
-# Predicting the Unpredictable: Uncertainty-Aware Reasoning over Temporal Knowledge Graphs via Diffusion Process
+# DiffuTKG
 
 ## Overview
 
