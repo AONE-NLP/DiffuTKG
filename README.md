@@ -2,8 +2,7 @@
 
 ## Overview
 
-This is the code for [Predicting the Unpredictable: Uncertainty-Aware Reasoning over Temporal Knowledge Graphs via Diffusion Process](https://openreview.net/forum?id=uGHthRbN9S), accepted by Findings of ACL 2024. After organizing the code, we will release all the code (before August, 2024).
-
+This is the code for [Predicting the Unpredictable: Uncertainty-Aware Reasoning over Temporal Knowledge Graphs via Diffusion Process](https://openreview.net/forum?id=uGHthRbN9S), accepted by Findings of ACL 2024.
 ![1703063577738](images/model.png)
 
 ## Requirements
