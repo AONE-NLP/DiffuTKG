@@ -33,7 +33,8 @@ First unzip the data files in the `data` directory, and then run `src/unseen_eve
 @inproceedings{cai24predicting,
 title={Predicting the Unpredictable: Uncertainty-Aware Reasoning over Temporal Knowledge Graphs via Diffusion Process},
 author={Cai, Yuxiang and Liu, Qiao and Gan, Yanglei and Li, Changlin and Liu, Xueyi and Lin, Run and Yang, Jiaye},
-booktitle={The 62nd Annual Meeting of the Association for Computational Linguistics},
+booktitle={Findings of the Association for Computational Linguistics: ACL 2024},
+publisher = {Association for Computational Linguistics},
 year={2024},
 address={Bangkok, Thailand}
 }
