@@ -1,0 +1,6 @@
+{
+    "lr":1e-3,
+    "accumulation_steps":1,
+    "dropout":0.2,
+    "train_history_len":3
+}

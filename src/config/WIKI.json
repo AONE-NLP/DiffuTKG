@@ -1,0 +1,21 @@
+{
+    "encoder_params":{
+        "hidden_size": 400,
+        "hidden_act": "gelu",
+        "gradient_checkpointing": false,
+        "initializer_range": 0.02,
+        "hidden_dropout_prob": 0.2,
+        "num_attention_heads": 8,
+        "layer_norm_eps": 1e-12,
+        "model_type": "bert",
+        "num_hidden_layers": 2,
+        "intermediate_size": 1024,
+        "attention_probs_dropout_prob": 0.2,
+        "vocab_size": 30522
+    },
+    "lr":5e-4,
+    "accumulation_steps":2,
+    "dropout":0.1,
+    "n_layers":2,
+    "train_history_len":2
+}
