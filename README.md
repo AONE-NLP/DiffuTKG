@@ -52,13 +52,26 @@ python src/main_21.py --test --pattern_noise_radio 2.5 --dataset GDELT --refinem
 
 ## Citation
 ```
-@inproceedings{cai24predicting,
-title={Predicting the Unpredictable: Uncertainty-Aware Reasoning over Temporal Knowledge Graphs via Diffusion Process},
-author={Cai, Yuxiang and Liu, Qiao and Gan, Yanglei and Li, Changlin and Liu, Xueyi and Lin, Run and Yang, Jiaye},
-booktitle={Findings of the Association for Computational Linguistics: ACL 2024},
-publisher = {Association for Computational Linguistics},
-year={2024},
-address={Bangkok, Thailand}
+@inproceedings{cai-etal-2024-predicting,
+    title = "Predicting the Unpredictable: Uncertainty-Aware Reasoning over Temporal Knowledge Graphs via Diffusion Process",
+    author = "Cai, Yuxiang  and
+      Liu, Qiao  and
+      Gan, Yanglei  and
+      Li, Changlin  and
+      Liu, Xueyi  and
+      Lin, Run  and
+      Luo, Da  and
+      JiayeYang, JiayeYang",
+    editor = "Ku, Lun-Wei  and
+      Martins, Andre  and
+      Srikumar, Vivek",
+    booktitle = "Findings of the Association for Computational Linguistics ACL 2024",
+    month = aug,
+    year = "2024",
+    address = "Bangkok, Thailand and virtual meeting",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2024.findings-acl.343",
+    pages = "5766--5778"
 }
 ```
 ## Have any Questions？Email yuxiangcai at stu.uestc.edu.cn
