@@ -4,7 +4,6 @@ import sys
 import pickle
 import logging
 
-from torch.utils.tensorboard import SummaryWriter
 
 import torch
 import json
@@ -12,10 +11,7 @@ import numpy as np
 from tqdm import tqdm
 import random
 import fitlog
-import math
 
-from collections import Counter
-from transformers.models.bert import BertConfig
 
 from torch.optim import *
 import copy
@@ -27,8 +23,6 @@ import wandb
 sys.path.append(".")
 from src import utils_entity
 from model_21 import create_model_diffu, Att_Diffuse_model
-from trainer import model_train, LSHT_inference
-from transformers import get_linear_schedule_with_warmup
 from utils_entity import build_sub_graph
 from knowledge_graph import _read_triplets_as_list
 
@@ -157,7 +151,8 @@ def run_experiment(args):
     utils_entity.seed_everything(seed)
     
 
-    head_ents = None
+    print("loading popularity bias data")
+    head_ents = json.load(open('./data/{}/head_ents.json'.format(args.dataset), 'r'))
     
 
     # score_naming = '_' + args.score_aggregation
@@ -511,11 +506,6 @@ if __name__ == '__main__':
     
 
     args = parser.parse_args()
-    args_dict = vars(args)
-    with open('./src/config/{}.json'.format(args_dict["dataset"]), 'rt') as f:
-        args_dict.update(json.load(f))
-    # load popularity bias data
-    args = argparse.Namespace(**args_dict)
     print(args)
     fitlog.set_log_dir("logs/")         # 设定日志存储的目录
     fitlog.add_hyper(args)
