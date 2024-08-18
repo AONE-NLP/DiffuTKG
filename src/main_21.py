@@ -157,8 +157,7 @@ def run_experiment(args):
     utils_entity.seed_everything(seed)
     
 
-    print("loading popularity bias data")
-    head_ents = json.load(open('./data/{}/head_ents.json'.format(args.dataset), 'r'))
+    head_ents = None
     
 
     # score_naming = '_' + args.score_aggregation
