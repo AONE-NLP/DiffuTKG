@@ -1,7 +1,0 @@
-{
-    "lr":5e-4,
-    "accumulation_steps":1,
-    "dropout":0.2,
-    "num_blocks":2,
-    "train_history_len":3
-}
