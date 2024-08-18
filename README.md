@@ -26,7 +26,29 @@ transformers==4.20.1
 First unzip the data files in the `data` directory, and then run `src/unseen_event.py` and `src/tri2seq.py`.
 
 ## Train and Evaluate
+```
+python src/main_21.py --dataset ICEWS14
 
+python src/main_21.py --test --pattern_noise_radio 2.0 --dataset ICEWS14 --refinements_radio 1.5 --seen_addition
+```
+
+```
+python src/main_21.py --dataset ICEWS18
+
+python src/main_21.py --test --pattern_noise_radio 2.0 --dataset ICEWS18 --refinements_radio 2.0 --seen_addition
+```
+
+```
+python src/main_21.py --dataset ICEWS05_15 --lr 5e-4
+
+python src/main_21.py --test --pattern_noise_radio 2.5 --dataset ICEWS05_15 --refinements_radio 2.0 --seen_addition
+```
+
+```
+python src/main_21.py --dataset GDELT --lr 5e-4
+
+python src/main_21.py --test --pattern_noise_radio 2.5 --dataset GDELT --refinements_radio 2.0 --seen_addition
+```
 
 ## Citation
 ```
