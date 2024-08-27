@@ -90,7 +90,8 @@ def test(args, model, model_name,
                 history_tail_seq, one_hot_tail_seq,seen_before_label = None, None,None
             diffu_reps = []
             for seed in range(1):
-                scores, diffu_rep, weights, t, _,ent_emb = model(history_glist, sequence,true_triples, False, use_cuda,seen_before_label = seen_before_label,history_tail_seq=history_tail_seq,static_graph=static_graph)
+                scores, diffu_rep, weights, t, _,ent_emb = model(history_glist, sequence,true_triples, False, use_cuda
+                                                                 ,seen_before_label = seen_before_label,history_tail_seq=history_tail_seq,static_graph=static_graph)
                 diffu_reps.append(diffu_rep)
             scores_rec_diffu = model.diffu_rep_pre(diffu_reps,ent_emb,history_tail_seq, one_hot_tail_seq) 
 
@@ -128,13 +129,22 @@ def run_experiment(args):
     # load graph data
     print("loading graph data")
     data = utils_entity.load_data(args.dataset)
-    train_list = utils_entity.split_by_time(
-        data.train)  # [((s, r, o), ...), ...] len = num_date, do not contain inverse triplets
+    # train_list = utils_entity.split_by_time(
+    #     data.train)  # [((s, r, o), ...), ...] len = num_date, do not contain inverse triplets
+    # valid_list = utils_entity.split_by_time(data.valid)
+    # test_list = utils_entity.split_by_time(data.test)
+    # train_times = np.array(sorted(set(data.train[:, 3])))
+    train_list = utils_entity.split_by_time(data.train)  # [((s, r, o), ...), ...] len = num_date, do not contain inverse triplets
     valid_list = utils_entity.split_by_time(data.valid)
     test_list = utils_entity.split_by_time(data.test)
+    
+    
     train_times = np.array(sorted(set(data.train[:, 3])))
     val_times = np.array(sorted(set(data.valid[:, 3])))
     test_times = np.array(sorted(set(data.test[:, 3])))
+    
+    # val_times = np.array(sorted(set(data.valid[:, 3])))
+    # test_times = np.array(sorted(set(data.test[:, 3])))
     history_times = np.concatenate((train_times, val_times, test_times), axis=None)
     
     num_nodes = data.num_nodes
@@ -319,7 +329,7 @@ def run_experiment(args):
                     scheduler.step()  #权重
                     optimizer.zero_grad()  # 重置梯度
 
-            print("Epoch {:04d}, AveLoss: {:.4f}, BestValf1 {:.4f}, BestTestf1: {:.4f}, Model: {}, Dataset: {} "
+            print("Epoch {:04d}, AveLoss: {:.4f}, BestValMRR {:.4f}, BestTestMRR: {:.4f}, Model: {}, Dataset: {} "
                   .format(epoch, np.mean(losses), best_val_mrr, best_test_mrr, model_name, args.dataset))
             # validation and test
             if (epoch + 1) and (epoch + 1) % args.evaluate_every == 0:
@@ -336,7 +346,8 @@ def run_experiment(args):
                                num_nodes = num_nodes,
                                use_cuda=use_cuda,
                                epoch = epoch,
-                               mode="eval")
+                               mode="eval",
+                               static_graph=static_graph)
                 test_filter_mrr_obj,test_filter_hit_obj,test_mrr_obj,test_hit_obj  = test(args,
                                 model=model,
                                 model_name=model_state_file,
@@ -357,7 +368,7 @@ def run_experiment(args):
                             "hit_filter":dev_filter_hit_obj,"epoch":epoch}
                                    ,"test":{"mrr":test_mrr_obj.item(),"hit_obj":test_hit_obj,"mrr_filter":test_filter_mrr_obj.item(),
                             "hit_filter":test_filter_hit_obj,"epoch":epoch}},step=0,epoch=epoch)
-                if dev_mrr_obj < best_val_mrr:
+                if dev_filter_mrr_obj < best_val_mrr:
                     accumulated += 1
                     if epoch >= args.n_epochs:
                         print("Max epoch reached! Training done.")
@@ -368,8 +379,8 @@ def run_experiment(args):
                         break
                 else:
                     accumulated = 0
-                    best_val_mrr = dev_mrr_obj
-                    best_test_mrr = test_mrr_obj
+                    best_val_mrr = dev_filter_mrr_obj
+                    best_test_mrr = test_filter_mrr_obj
                     best_epoch = epoch
                     torch.save({'state_dict': model.state_dict(), 'epoch': epoch}, model_state_file)
                     fitlog.add_best_metric({"dev":{"mrr":dev_mrr_obj.item(),"hit_obj":dev_hit_obj,"mrr_filter":dev_filter_mrr_obj.item(),
@@ -394,10 +405,6 @@ def run_experiment(args):
              mode="test",
              ts=ts,
              static_graph=static_graph)
-        fitlog.add_best_metric({"dev":{"mrr":test_mrr_obj.item(),"hit_obj":test_hit_obj,"mrr_filter":test_filter_mrr_obj.item(),
-                            "hit_filter":test_filter_hit_obj,"epoch":epoch}
-                                   ,"test":{"mrr":test_mrr_obj.item(),"hit_obj":test_hit_obj,"mrr_filter":test_filter_mrr_obj.item(),
-                            "hit_filter":test_filter_hit_obj,"epoch":epoch}})
         fitlog.finish()
 
 
