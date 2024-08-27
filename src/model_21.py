@@ -6,7 +6,6 @@ import torch.nn.functional as F
 import numpy as np
 from regcn import RGCNCell,RGCNBlockLayer
 import torch as th
-from decoder import ConvTransE
 
 
 class LayerNorm(nn.Module):
@@ -104,10 +103,6 @@ class Att_Diffuse_model(nn.Module):
         
         self.mlp_model = nn.Sequential(nn.Linear(self.emb_dim, self.emb_dim*2),nn.GELU(),nn.Linear(self.emb_dim*2, 2))
         
-        self.concat_operation = ConvTransE(num_entities=self.num_ents
-                                           ,embedding_dim=self.emb_dim
-                                           ,channels=50,feature_map_dropout=dropout,
-                                           input_dropout=dropout)
         self.weight_energy = torch.nn.Parameter(torch.Tensor(1, self.num_ents),
                                               requires_grad=True).float()
         torch.nn.init.uniform_(self.weight_energy)
